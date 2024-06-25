@@ -14,7 +14,8 @@ const dbUrl =
   "mongodb+srv://mongomasoom:MongoMasoom@cluster0.jrqbcbi.mongodb.net/CertificatesDatabase";
 
 // Middlewares
-app.use(cors({ origin: "http://localhost:5173" }));
+// app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
