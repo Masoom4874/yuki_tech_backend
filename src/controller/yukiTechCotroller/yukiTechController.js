@@ -99,7 +99,7 @@ const uploadToS3 = async (base64String, bucketName, key) => {
     Body: buffer,
     ContentEncoding: "base64",
     ContentType: "image/jpeg",
-    ACL: "public-read",
+    // ACL: "public-read",
   };
   return s3.upload(params).promise();
 };
