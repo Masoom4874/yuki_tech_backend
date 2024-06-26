@@ -39,7 +39,8 @@ export const checkempController = async (req, res) => {
 // Create certificate entries controller
 export const createCertificateEntries = async (req, res) => {
   try {
-    const { id, docName, contNo, cert } = req.body;
+    const { id, docName, contNo } = req.body;
+    const { cert } = req.files;
 
     // Validate required fields
     if (!docName || !contNo || !cert) {
@@ -90,15 +91,12 @@ export const getEmpData = async (req, res) => {
   }
 };
 
-const uploadToS3 = async (base64String, bucketName, key) => {
-  const buffer = Buffer.from(base64String, "base64");
-
+const uploadToS3 = async (file, bucketName, key) => {
   const params = {
     Bucket: bucketName,
     Key: key,
-    Body: buffer,
-    ContentEncoding: "base64",
-    ContentType: "image/jpeg",
+    Body: file.data, // Assuming the file object contains a 'data' property with the file buffer
+    ContentType: file.mimetype, // Get MIME type from the file object
     // ACL: "public-read",
   };
   return s3.upload(params).promise();
